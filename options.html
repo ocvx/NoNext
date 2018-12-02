@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .switch {
+                display: inline-block;
+                height: 90vh;
+                position: relative;
+                width: 90vw;
+            }
+    
+            .switch input {
+                display: none;
+            }
+    
+            .slider {
+                background-color: #ccc;
+                bottom: 0;
+                cursor: pointer;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                
+            }
+            .slider.init{
+                transition: all 1.4s linear;
+            }
+    
+            .slider:before {
+                background-color: #fff;
+                content: "";
+                margin: 3.6% 0;
+                position: absolute;
+                width: 41%;
+                padding-top: 41%;
+            }
+
+            .slider.init:before{
+                transition: all 1.4s linear;
+            }
+    
+            input:checked+.slider {
+                background-color: #3b5998;
+            }
+            input+.slider:before {
+                left: 6%;
+            }
+            input:checked+.slider:before {
+                left: 94%;
+                transform: translateX(-100%);
+            }
+    
+            .slider.round {
+                border-radius: 25%/56%;
+            }
+    
+            .slider.round:before {
+                border-radius: 50%;
+            }
+            span{
+                font-size: large;
+            }
+        </style>
+</head>
+
+<body>
+    <span>
+        No options for now, just this huge on/off button. Check out the
+        <a href="about.html">
+            About
+        </a> page.</span>
+    <label class="switch"> <input type="checkbox" id="cb" checked>
+        <div class="slider round"></div>
+
+    </label><br>
+
+
+    <script src="popup.js"></script>
+
+
+</body>
+
+</html>

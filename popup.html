@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /*based on https://codepen.io/AllThingsSmitty/pen/MmxxOz */
+            .switch {
+                display: inline-block;
+                height: 17px;
+                position: relative;
+                width: 30px;
+            }
+    
+            .switch input {
+                display: none;
+            }
+    
+            .slider {
+                background-color: #ccc;
+                bottom: 0;
+                cursor: pointer;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                
+            }
+            .slider.init{
+                transition: all .4s linear;
+            }
+    
+            .slider:before {
+                background-color: #fff;
+                content: "";
+                height: 77%;
+                margin: 5% 0;
+                position: absolute;
+                width: 45%;
+            }
+
+            .slider.init:before{
+                transition: all .4s linear;
+            }
+    
+            input:checked+.slider {
+                background-color: #3b5998;
+            }
+            input+.slider:before {
+                left: 10%;
+            }
+            input:checked+.slider:before {
+                left: 90%;
+                transform: translateX(-100%);
+            }
+    
+            .slider.round {
+                border-radius: 25%/50%;
+            }
+    
+            .slider.round:before {
+                border-radius: 50%;
+            }
+        </style>
+</head>
+
+<body>
+
+
+    <label class="switch"> <input type="checkbox" id="cb" checked>
+        <div class="slider round"></div>
+
+    </label>
+
+
+    <script src="popup.js"></script>
+
+
+</body>
+
+</html>
