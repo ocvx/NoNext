@@ -1,5 +1,6 @@
-# NoNext
-Stop autoplay-next video on Facebook
+# Stop Next Video
+Stop autoplay-next video on Facebook.
+
 This extension will cancel Facebook's next-video-autoplay for you.
 The extension monitors the page and clicks the 'cancel' button when the video ends. You won't even see the small 'next' window since the extension hides it.
 You can always switch the extension on or off and it will instantly apply to all open tabs.
