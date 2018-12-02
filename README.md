@@ -6,6 +6,7 @@ The extension monitors the page and clicks the 'cancel' button when the video en
 You can always switch the extension on or off and it will instantly apply to all open tabs.
 
 The extension is available for Firefox and Chrome:
+
 [Chrome link](https://chrome.google.com/webstore/detail/ijlabhomiokbhcefphgokachaencmglf)
 
 # Performance and How the extensoin works
