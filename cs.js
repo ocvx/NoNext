@@ -4,8 +4,8 @@ let lastLocation = '';
 let handledLastLocation = false;
 let intervalID;
 let settings = {intervalDelay: 3000, on: true};
-/** @type HTMLVideoElement */
-let lastVid;
+/** @type HTMLVideoElement[] */
+let lastVidList;
 
 function storageGet(keys, cb) {
   if (chrome) {
@@ -18,10 +18,25 @@ var css = document.createElement('style');
 css.type = 'text/css';
 document.head.appendChild(css);
 
-function clickCancel() {
+function clickCancel(retry = true) {
   let span = document.querySelector(spanSelector);
   if (!span) {
-    return false;
+    if (!retry) {
+      return false;
+    }
+    let spanList = document.querySelector('a i+span');
+    spanList = Array.from(spanList).filter(s => /cancel/i.test(s.innerText));
+    if (spanList.length <= 0) {
+      console.error('stop next video: didn\'t find the \'cancel\' span');
+      return false;
+    }
+    if (spanList.length > 1) {
+      console.warn(
+          'found more than one span with the word \'cancel\', clicking them all',
+          spanList);
+    }
+    spanList.forEach(s => s.click());
+    return true;
   }
   span.click();
   console.log('next video stopped');
@@ -36,12 +51,13 @@ function addVideoHook() {
     setTimeout(addVideoHook, delay);
     return;
   }
-  if (vidList.length != 1) {
-    console.error(`Error: expected only one video, got ${vidList.length}`);
-    return;
+  if (vidList.length > 1) {
+    console.warn(
+        `Expected only one video, got ${vidList.length}, listening to all`,
+        vidList);
   }
-  lastVid = vidList[0];
-  lastVid.addEventListener('ended', clickCancel);
+  vidList.forEach((v) => v.addEventListener('ended', clickCancel));
+  lastVidList = vidList;
 }
 
 
@@ -65,7 +81,7 @@ function poll() {
     addVideoHook();
     handledLastLocation = true;
     // in case it was a very short video and it already ended
-    clickCancel();
+    clickCancel(false);
   } else {
     if (handledLastLocation) {
       return;
@@ -82,7 +98,8 @@ function setOn() {
 function setOff() {
   clearInterval(intervalID);
   clearCss();
-  lastVid && lastVid.removeEventListener('ended', clickCancel);
+  lastVidList &&
+      lastVidList.forEach((v) => v.removeEventListener('ended', clickCancel));
 }
 
 storageGet('settings', (items) => {
@@ -90,8 +107,8 @@ storageGet('settings', (items) => {
   settings.on !== false ? setOn() : setOff();
 });
 
-// listens for messages from options || popup.html (for now just turning the extension on
-// and off)
+// listens for messages from options || popup.html (for now just turning the
+// extension on and off)
 (chrome || browser)
     .runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       console.log('msg:', msg, sender);
