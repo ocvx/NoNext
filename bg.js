@@ -22,7 +22,7 @@ function setIcon(icons) {
 
 // set the right icon
 storageGet('settings', (items) => {
-  let {settings} = items;
+  let settings = items.settings || {};
   setIcon(settings.on !== false ? iconsOn : iconsOff);
 });
 
