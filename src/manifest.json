@@ -1,6 +1,6 @@
 {
     "name": "Stop next video",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Prevent auto-playing next video on Facebook",
     "icons": {
         "16": "icons-on/icon.16.png",
