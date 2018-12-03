@@ -49,22 +49,14 @@ const isChrome = /chrome/i.test(navigator.userAgent);
 
 function onCBChanged() {
   console.log(cb.checked);
-  CBrowser.queryTabs(
-      {
-        url: [
-          'https://*.facebook.com/*',
-          isChrome ? 'chrome-extension://*/options.html' :
-                     'moz-extension://*/options.html'
-        ]
-      },
-      function(tabs) {
-        tabs.forEach(tab => {
-          CBrowser.sendMsg(
-              tab.id, {settings: {on: cb.checked}}, function(response) {
-                console.log(response);
-              });
-        });
-      });
+  CBrowser.queryTabs({}, function(tabs) {
+    tabs.forEach(tab => {
+      CBrowser.sendMsg(
+          tab.id, {settings: {on: cb.checked}}, function(response) {
+            console.log(response);
+          });
+    });
+  });
   CBrowser.storageGet('settings', (items) => {
     let settings = items.settings || {};
     settings.on = cb.checked;
