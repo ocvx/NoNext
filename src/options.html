@@ -34,10 +34,11 @@
             .slider:before {
                 background-color: #fff;
                 content: "";
-                margin: 3.6% 0;
                 position: absolute;
                 width: 41%;
                 padding-top: 41%;
+                top: 50%;
+                transform: translateY(-50%);
             }
 
             .slider.init:before{
@@ -52,8 +53,8 @@
             }
             input:checked+.slider:before {
                 left: 94%;
-                transform: translateX(-100%);
-            }
+                transform: translate(-100%,-50%);
+               }
     
             .slider.round {
                 border-radius: 25%/56%;
